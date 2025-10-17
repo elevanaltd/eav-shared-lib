@@ -27,25 +27,24 @@ describe('Package Barrel Exports', () => {
   // Test that main index re-exports all modules
   it('should re-export from client module', async () => {
     // This will fail if src/index.ts doesn't export from client
-    const mainExports = await import('../../../src/index.js')
+    const mainExports = await import('../../src/index.js')
     expect(mainExports).toBeDefined()
-
-    // Verify client exports are available
-    // (Will be placeholders in Phase 1, real implementations in Phase 2)
+    expect(mainExports.createClient).toBeDefined()
   })
 
   it('should re-export from types module', async () => {
-    const mainExports = await import('../../../src/index.js')
+    const mainExports = await import('../../src/index.js')
     expect(mainExports).toBeDefined()
+    // Types are not runtime exports, just verify module loads
   })
 
   it('should re-export from auth module', async () => {
-    const mainExports = await import('../../../src/index.js')
+    const mainExports = await import('../../src/index.js')
     expect(mainExports).toBeDefined()
   })
 
   it('should re-export from rls module', async () => {
-    const mainExports = await import('../../../src/index.js')
+    const mainExports = await import('../../src/index.js')
     expect(mainExports).toBeDefined()
   })
 })
