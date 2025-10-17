@@ -103,4 +103,4 @@ Private - EAV Operations internal use only
 
 ## Contributing
 
-See [B1_03 BUILD.md](../../eav-ops.coord/workflow-docs/001-UNIVERSAL-EAV_SYSTEM-D1-BUILD-REFERENCE.md) for development workflow.
+See [B1_03 BUILD.md](../../coordination/workflow-docs/001-UNIVERSAL-EAV_SYSTEM-D1-BUILD-REFERENCE.md) for development workflow.
