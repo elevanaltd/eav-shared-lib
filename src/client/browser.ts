@@ -22,8 +22,7 @@ import type { Database } from '../types/index.js'
 export function createBrowserClient(): SupabaseClient<Database> {
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
   const supabaseKey =
-    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
-    import.meta.env.VITE_SUPABASE_ANON_KEY // Backward compat
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || import.meta.env.VITE_SUPABASE_ANON_KEY // Backward compat
 
   if (!supabaseUrl) {
     throw new Error('Missing VITE_SUPABASE_URL environment variable')

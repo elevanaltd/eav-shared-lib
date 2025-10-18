@@ -33,9 +33,7 @@ describe('createBrowserClient', () => {
     delete import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
     delete import.meta.env.VITE_SUPABASE_ANON_KEY
 
-    expect(() => createBrowserClient()).toThrow(
-      'Missing VITE_SUPABASE_PUBLISHABLE_KEY'
-    )
+    expect(() => createBrowserClient()).toThrow('Missing VITE_SUPABASE_PUBLISHABLE_KEY')
   })
 
   it('falls back to VITE_SUPABASE_ANON_KEY for backward compatibility', () => {
