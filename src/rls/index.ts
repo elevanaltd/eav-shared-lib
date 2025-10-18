@@ -24,7 +24,7 @@
  * // Test RLS policies
  * const results = await testRLSPolicy(supabase, {
  *   table: 'projects',
- *   roles: { admin: { email: 'admin@test.com', password: 'test' } },
+ *   roles: { admin: { email: 'mock-admin@test.com', password: 'mock-password' } },
  *   expectations: { admin: { canRead: true, canWrite: true } }
  * })
  * ```

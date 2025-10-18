@@ -184,9 +184,9 @@ describe('RLS Module - Test Utilities', () => {
       const testConfig = {
         table: 'projects',
         roles: {
-          admin: { email: 'admin@test.com', password: 'test123' },
-          client: { email: 'client@test.com', password: 'test123' },
-          unauthorized: { email: 'unauthorized@test.com', password: 'test123' },
+          admin: { email: 'mock-admin@test.com', password: 'mock-password' },
+          client: { email: 'mock-client@test.com', password: 'mock-password' },
+          unauthorized: { email: 'mock-unauthorized@test.com', password: 'mock-password' },
         },
         expectations: {
           admin: { canRead: true, canWrite: true },
@@ -219,7 +219,7 @@ describe('RLS Module - Test Utilities', () => {
       const testConfig = {
         table: 'test_table',
         roles: {
-          admin: { email: 'admin@test.com', password: 'test' },
+          admin: { email: 'mock-admin@test.com', password: 'mock-password' },
         },
         expectations: {
           admin: { canRead: true, canWrite: true },

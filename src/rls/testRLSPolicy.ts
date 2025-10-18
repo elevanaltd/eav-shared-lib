@@ -10,8 +10,8 @@
  * const results = await testRLSPolicy(client, {
  *   table: 'projects',
  *   roles: {
- *     admin: { email: 'admin@test.com', password: 'test' },
- *     client: { email: 'client@test.com', password: 'test' }
+ *     admin: { email: 'mock-admin@test.com', password: 'mock-password' },
+ *     client: { email: 'mock-client@test.com', password: 'mock-password' }
  *   },
  *   expectations: {
  *     admin: { canRead: true, canWrite: true },

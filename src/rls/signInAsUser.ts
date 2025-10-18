@@ -8,11 +8,11 @@
  * @example
  * ```typescript
  * // Test admin access
- * const adminId = await signInAsUser(client, 'admin@test.com', 'password')
+ * const adminId = await signInAsUser(client, 'mock-admin@test.com', 'mock-password')
  * const { data: adminData } = await client.from('projects').select('*')
  *
  * // Test client access
- * const clientId = await signInAsUser(client, 'client@test.com', 'password')
+ * const clientId = await signInAsUser(client, 'mock-client@test.com', 'mock-password')
  * const { data: clientData } = await client.from('projects').select('*')
  * ```
  */
