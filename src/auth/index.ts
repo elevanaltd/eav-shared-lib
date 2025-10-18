@@ -19,9 +19,7 @@ import type { Database } from '../types/index.js'
  * @param client - Supabase client instance
  * @returns Current session or null if not authenticated
  */
-export async function getSession(
-  client: SupabaseClient<Database>
-): Promise<Session | null> {
+export async function getSession(client: SupabaseClient<Database>): Promise<Session | null> {
   const { data, error } = await client.auth.getSession()
 
   if (error) {
@@ -46,7 +44,7 @@ export async function signIn(
 ): Promise<{ session: Session | null; error: Error | null }> {
   const { data, error } = await client.auth.signInWithPassword({
     email,
-    password
+    password,
   })
 
   if (error) {
@@ -60,9 +58,7 @@ export async function signIn(
  * Sign out current user
  * @param client - Supabase client instance
  */
-export async function signOut(
-  client: SupabaseClient<Database>
-): Promise<void> {
+export async function signOut(client: SupabaseClient<Database>): Promise<void> {
   const { error } = await client.auth.signOut()
 
   if (error) {
@@ -88,7 +84,7 @@ export async function signUp(
   const { data, error } = await client.auth.signUp({
     email,
     password,
-    options: metadata ? { data: metadata } : undefined
+    options: metadata ? { data: metadata } : undefined,
   })
 
   if (error) {

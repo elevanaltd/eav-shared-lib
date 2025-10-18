@@ -56,7 +56,7 @@ describe('Types Module', () => {
       const indexPath = join(process.cwd(), 'src/types/index.ts')
       const content = readFileSync(indexPath, 'utf-8')
 
-      expect(content).toContain("export type { Database")
+      expect(content).toContain('export type { Database')
       expect(content).toContain("from './database.types.js'")
     })
 

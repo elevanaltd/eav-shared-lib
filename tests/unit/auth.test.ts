@@ -17,8 +17,8 @@ const createMockClient = (): SupabaseClient<Database> => {
       signInWithPassword: vi.fn(),
       signOut: vi.fn(),
       signUp: vi.fn(),
-      onAuthStateChange: vi.fn()
-    }
+      onAuthStateChange: vi.fn(),
+    },
   } as any
 }
 
@@ -33,7 +33,7 @@ describe('Auth Module', () => {
     it('should return null when not authenticated', async () => {
       vi.mocked(mockClient.auth.getSession).mockResolvedValue({
         data: { session: null },
-        error: null
+        error: null,
       })
 
       const { getSession } = await import('../../src/auth/index.js')
@@ -46,12 +46,19 @@ describe('Auth Module', () => {
       const mockSession = {
         access_token: 'test-token',
         refresh_token: 'test-refresh',
-        user: { id: 'user-123', email: 'test@example.com', app_metadata: {}, user_metadata: {}, aud: 'authenticated', created_at: '' }
+        user: {
+          id: 'user-123',
+          email: 'test@example.com',
+          app_metadata: {},
+          user_metadata: {},
+          aud: 'authenticated',
+          created_at: '',
+        },
       }
 
       vi.mocked(mockClient.auth.getSession).mockResolvedValue({
         data: { session: mockSession as any },
-        error: null
+        error: null,
       })
 
       const { getSession } = await import('../../src/auth/index.js')
@@ -66,7 +73,7 @@ describe('Auth Module', () => {
     it('should call client.auth.signInWithPassword with credentials', async () => {
       vi.mocked(mockClient.auth.signInWithPassword).mockResolvedValue({
         data: { user: null, session: null },
-        error: null
+        error: null,
       })
 
       const { signIn } = await import('../../src/auth/index.js')
@@ -74,7 +81,7 @@ describe('Auth Module', () => {
 
       expect(mockClient.auth.signInWithPassword).toHaveBeenCalledWith({
         email: 'test@example.com',
-        password: 'password123'
+        password: 'password123',
       })
     })
 
@@ -82,7 +89,7 @@ describe('Auth Module', () => {
       const mockError = { message: 'Invalid credentials', name: 'AuthError', status: 401 }
       vi.mocked(mockClient.auth.signInWithPassword).mockResolvedValue({
         data: { user: null, session: null },
-        error: mockError as any
+        error: mockError as any,
       })
 
       const { signIn } = await import('../../src/auth/index.js')
@@ -96,7 +103,7 @@ describe('Auth Module', () => {
   describe('signOut', () => {
     it('should call client.auth.signOut', async () => {
       vi.mocked(mockClient.auth.signOut).mockResolvedValue({
-        error: null
+        error: null,
       })
 
       const { signOut } = await import('../../src/auth/index.js')
@@ -110,7 +117,7 @@ describe('Auth Module', () => {
     it('should call client.auth.signUp with email, password, and metadata', async () => {
       vi.mocked(mockClient.auth.signUp).mockResolvedValue({
         data: { user: null, session: null },
-        error: null
+        error: null,
       })
 
       const { signUp } = await import('../../src/auth/index.js')
@@ -120,8 +127,8 @@ describe('Auth Module', () => {
         email: 'new@example.com',
         password: 'password123',
         options: {
-          data: { display_name: 'Test User' }
-        }
+          data: { display_name: 'Test User' },
+        },
       })
     })
   })
@@ -132,7 +139,9 @@ describe('Auth Module', () => {
       const mockUnsubscribe = vi.fn()
 
       vi.mocked(mockClient.auth.onAuthStateChange).mockReturnValue({
-        data: { subscription: { id: 'sub-123', callback: mockCallback, unsubscribe: mockUnsubscribe } }
+        data: {
+          subscription: { id: 'sub-123', callback: mockCallback, unsubscribe: mockUnsubscribe },
+        },
       } as any)
 
       const { onAuthStateChange } = await import('../../src/auth/index.js')
