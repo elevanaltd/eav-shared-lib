@@ -1,0 +1,19 @@
+# GitGuardian Configuration
+# Exclude test files from secret scanning - they contain mock credentials by design
+
+version: 2
+
+paths-ignore:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/tests/**"
+  - "**/test/**"
+  - "**/__tests__/**"
+  - "**/fixtures/**"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+
+# Exclude common test patterns
+matches-ignore:
+  - name: Mock test credentials
+    match: mock-password|password123|test-password|mock-admin|mock-client
