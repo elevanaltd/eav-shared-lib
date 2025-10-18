@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
-import { createBrowserClient } from '../../../src/client/browser.js'
+import { createBrowserClient } from './browser.js'
 
 describe('createBrowserClient', () => {
   // Save original environment

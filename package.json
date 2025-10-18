@@ -1,6 +1,6 @@
 {
   "name": "@elevanaltd/shared-lib",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "Shared Supabase client library for EAV operations",
   "type": "module",
   "main": "./dist/index.js",
