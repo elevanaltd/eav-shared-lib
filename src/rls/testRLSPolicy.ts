@@ -76,7 +76,7 @@ export async function testRLSPolicy(
 
       // Test read access
       const readResult = await client
-        .from(config.table as keyof Database["public"]["Tables"])
+        .from(config.table as keyof Database['public']['Tables'])
         .select('*')
         .limit(1)
 
@@ -88,7 +88,9 @@ export async function testRLSPolicy(
       const testInsert: Record<string, unknown> = { test: true }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const writeResult = await client.from(config.table as keyof Database["public"]["Tables"]).insert(testInsert)
+      const writeResult = await client
+        .from(config.table as keyof Database['public']['Tables'])
+        .insert(testInsert)
       const canWrite = !writeResult.error
       const writeError = writeResult.error?.message
 
