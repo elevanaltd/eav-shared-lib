@@ -15,7 +15,7 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import type { Database } from '../../src/types/index.js'
+import type { Database } from '../types/index.js'
 
 // Test configuration (would use real Supabase in integration tests)
 const TEST_SUPABASE_URL = 'https://test.supabase.co'
@@ -25,7 +25,7 @@ describe('RLS Module - Query Builders', () => {
   describe('buildClientQuery', () => {
     it('should build query with client_filter JOIN', async () => {
       // TDD RED: This will fail - function doesn't exist yet
-      const { buildClientQuery } = await import('../../src/rls/index.js')
+      const { buildClientQuery } = await import('./index.js')
 
       const mockQueryBuilder = {
         select: vi.fn().mockReturnThis(),
