@@ -29,7 +29,7 @@ describe('Package Barrel Exports', () => {
     // This will fail if src/index.ts doesn't export from client
     const mainExports = await import('../../src/index.js')
     expect(mainExports).toBeDefined()
-    expect(mainExports.createClient).toBeDefined()
+    expect(mainExports.createBrowserClient).toBeDefined()
   })
 
   it('should re-export from types module', async () => {

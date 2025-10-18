@@ -1,0 +1,98 @@
+# Critical-Engineer: consulted for CI/CD validation and integration testing strategy
+# Testguard: consulted for test discipline enforcement and anti-manipulation patterns
+#
+# CONSTITUTIONAL ENFORCEMENT:
+# - QUALITY_GATES::BLOCKING[lint+typecheck+tests] (Constitutional mandate)
+# - TEST_DISCIPLINE::BLOCKING[no_skipped_tests] (Testguard requirement)
+# - BUILD_VALIDATION::BLOCKING[all_exports_verified] (Critical-Engineer requirement)
+# - SECURITY_AUDIT::BLOCKING[no_vulnerabilities] (Critical-Engineer requirement)
+
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  quality-gates:
+    name: Quality Gates (lint + typecheck + format + test + build + security)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (reproducible build)
+        run: npm ci
+
+      - name: Run lint (must pass)
+        run: npm run lint
+
+      - name: Check code formatting (must pass)
+        run: npm run format:check
+
+      - name: Run typecheck (must pass)
+        run: npm run typecheck
+
+      - name: Run security audit (must pass)
+        run: npm audit --production
+
+      - name: Run tests with coverage (must pass)
+        run: npm test -- --run --coverage
+
+      - name: Enforce no skipped tests (test discipline)
+        run: |
+          if grep -r "test\.skip\|describe\.skip\|test\.todo\|it\.skip" tests/; then
+            echo "ERROR: Skipped tests detected - fix the code, not the test"
+            echo "This violates test discipline: NEVER[fix_test_instead_of_code]"
+            exit 1
+          fi
+          echo "✓ No skipped tests found"
+
+      - name: Build package (verify type declarations)
+        run: npm run build
+
+      - name: Verify all package exports exist
+        run: |
+          # Check main entry point
+          if [ ! -f "dist/index.d.ts" ] || [ ! -f "dist/index.js" ]; then
+            echo "ERROR: Main entry point missing"
+            exit 1
+          fi
+
+          # Check client export
+          if [ ! -f "dist/client/index.d.ts" ] || [ ! -f "dist/client/index.js" ]; then
+            echo "ERROR: Client export missing"
+            exit 1
+          fi
+
+          # Check types export
+          if [ ! -f "dist/types/index.d.ts" ] || [ ! -f "dist/types/index.js" ]; then
+            echo "ERROR: Types export missing"
+            exit 1
+          fi
+
+          # Check auth export
+          if [ ! -f "dist/auth/index.d.ts" ] || [ ! -f "dist/auth/index.js" ]; then
+            echo "ERROR: Auth export missing"
+            exit 1
+          fi
+
+          # Check rls export
+          if [ ! -f "dist/rls/index.d.ts" ] || [ ! -f "dist/rls/index.js" ]; then
+            echo "ERROR: RLS export missing"
+            exit 1
+          fi
+
+          echo "✓ All package exports verified"
+
+      - name: Verify package can be published (dry run)
+        run: npm publish --dry-run
