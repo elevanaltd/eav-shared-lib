@@ -27,7 +27,7 @@ jobs:
           node-version: '20'
           cache: 'npm'
           registry-url: 'https://npm.pkg.github.com/'
-          scope: '@eav-ops'
+          scope: '@elevanaltd'
 
       - name: Install dependencies (reproducible build)
         run: npm ci
