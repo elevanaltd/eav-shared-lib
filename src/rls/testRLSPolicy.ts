@@ -76,7 +76,10 @@ export async function testRLSPolicy(
 
       // Test read access
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const readResult = await client.from(config.table as any).select('*').limit(1)
+      const readResult = await client
+        .from(config.table as any)
+        .select('*')
+        .limit(1)
 
       const canRead = !readResult.error && readResult.data !== null
       const readError = readResult.error?.message
@@ -95,14 +98,14 @@ export async function testRLSPolicy(
         canRead,
         canWrite,
         readError,
-        writeError
+        writeError,
       }
     } catch (error) {
       results[roleName] = {
         canRead: false,
         canWrite: false,
         readError: error instanceof Error ? error.message : 'Unknown error',
-        writeError: error instanceof Error ? error.message : 'Unknown error'
+        writeError: error instanceof Error ? error.message : 'Unknown error',
       }
     }
   }
