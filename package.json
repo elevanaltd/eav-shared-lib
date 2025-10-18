@@ -1,5 +1,5 @@
 {
-  "name": "@eav-ops/shared-lib",
+  "name": "@elevanaltd/shared-lib",
   "version": "0.1.0",
   "description": "Shared Supabase client library for EAV operations",
   "type": "module",
@@ -47,6 +47,14 @@
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elevanaltd/eav-shared-lib.git"
   },
   "peerDependencies": {
     "@supabase/supabase-js": "^2.75.0"
