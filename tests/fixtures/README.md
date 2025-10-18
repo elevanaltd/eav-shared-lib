@@ -55,9 +55,9 @@ await signInAsUser(supabaseClient, email, password)
 
 2. Update `.env` with actual test credentials from Supabase:
    ```bash
-   TEST_ADMIN_EMAIL=test-admin@elevana.com
+   TEST_ADMIN_EMAIL=your-admin@example.com
    TEST_ADMIN_PASSWORD=<actual-password-from-supabase>
-   TEST_CLIENT_EMAIL=test-client@external.com
+   TEST_CLIENT_EMAIL=your-client@example.com
    TEST_CLIENT_PASSWORD=<actual-password-from-supabase>
    ```
 
@@ -71,17 +71,17 @@ await signInAsUser(supabaseClient, email, password)
 Based on Supabase query 2025-10-18:
 
 - **Admin User**
-  - Email: `test-admin@elevana.com`
+  - Email: `your-admin@example.com`
   - Role: Admin
   - Created: 2025-09-29
 
 - **Client User**
-  - Email: `test-client@external.com`
+  - Email: `your-client@example.com`
   - Role: Client (assigned to test-client-company)
   - Created: 2025-09-29
 
 - **Unauthorized User**
-  - Email: `test-unauthorized@external.com`
+  - Email: `your-unauthorized@example.com`
   - Role: None (no client assignments)
   - Created: 2025-09-29
 

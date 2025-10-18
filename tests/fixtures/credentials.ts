@@ -44,11 +44,11 @@ export interface TestCredentials {
  * ```typescript
  * // Get admin credentials
  * const adminCreds = getTestCredentials('admin')
- * // Returns: { email: 'test-admin@elevana.com', password: '...' }
+ * // Returns: { email: 'your-admin@example.com', password: '...' }
  *
  * // Get client credentials
  * const clientCreds = getTestCredentials('client')
- * // Returns: { email: 'test-client@external.com', password: '...' }
+ * // Returns: { email: 'your-client@example.com', password: '...' }
  * ```
  */
 export function getTestCredentials(role: TestRole): TestCredentials {
