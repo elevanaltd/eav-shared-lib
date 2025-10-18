@@ -48,6 +48,14 @@
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elevanaltd/eav-shared-lib.git"
+  },
   "peerDependencies": {
     "@supabase/supabase-js": "^2.75.0"
   },

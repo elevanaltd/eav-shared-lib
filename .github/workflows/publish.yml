@@ -1,0 +1,56 @@
+# GitHub Packages Publication Workflow
+# Constitutional mandate: CI_QUALITY_GATES (line 178) - lint+typecheck+tests must pass before publication
+# Anti-pattern prevention: Publish only on successful quality gate completion
+
+name: Publish to GitHub Packages
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Trigger on version tags (e.g., v0.1.0, v1.0.0)
+
+jobs:
+  publish:
+    name: Publish @eav-ops/shared-lib
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write  # Required for GitHub Packages publication
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@eav-ops'
+
+      - name: Install dependencies (reproducible build)
+        run: npm ci
+
+      - name: Run quality gates (constitutional requirement)
+        run: |
+          echo "✓ Running lint..."
+          npm run lint
+          echo "✓ Running typecheck..."
+          npm run typecheck
+          echo "✓ Running format check..."
+          npm run format:check
+          echo "✓ Running tests..."
+          npm test -- --run
+          echo "✓ All quality gates passed"
+
+      - name: Build package
+        run: npm run build
+
+      - name: Verify package contents
+        run: npm publish --dry-run
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
