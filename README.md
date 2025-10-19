@@ -6,9 +6,9 @@ Shared Supabase client library for EAV Operations Suite applications.
 
 ## Status
 
-✅ **PUBLISHED** - v0.1.4 available on GitHub Packages
+✅ **PUBLISHED** - v0.1.5 available on GitHub Packages
 
-**Latest Version**: `0.1.4`
+**Latest Version**: `0.1.5`
 **Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
 **Modules Complete**: Client + Types + Auth + RLS
 
@@ -78,6 +78,40 @@ const query = applyRLSFilters(
   { userId, role: 'client', clientFilter }
 )
 ```
+
+## Testing
+
+### Overriding Supabase Credentials in Tests
+
+The `createBrowserClient` function supports dependency injection for test environments:
+
+```typescript
+// src/test/setup.ts or vitest.config.ts
+import { beforeAll } from 'vitest'
+import { createBrowserClient } from '@elevanaltd/shared-lib/client'
+
+beforeAll(() => {
+  // Override with test credentials
+  globalThis.testSupabase = createBrowserClient(
+    'https://test-project.supabase.co',
+    'test-anon-key'
+  )
+})
+```
+
+**Why This Pattern?**
+
+The shared library is pre-compiled (reads `import.meta.env` at build time). Test environments need to inject mock credentials at runtime. Dependency injection solves this:
+
+```typescript
+// Production (no parameters): Uses environment variables
+const supabase = createBrowserClient()
+
+// Test (with parameters): Uses injected credentials
+const supabase = createBrowserClient(testUrl, testKey)
+```
+
+This enables all 7 EAV apps to test with mock Supabase credentials without requiring environment variable manipulation.
 
 ## Development
 
