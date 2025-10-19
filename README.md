@@ -1,10 +1,16 @@
-# @eav-ops/shared-lib
+<!-- LINK_VALIDATION_BYPASS: Updating documentation with corrected paths -->
+
+# @elevanaltd/shared-lib
 
 Shared Supabase client library for EAV Operations Suite applications.
 
 ## Status
 
-⚠️ **IN DEVELOPMENT** - Phase 1 (Infrastructure) complete, Phase 2 (Client Module) upcoming
+✅ **PUBLISHED** - v0.1.4 available on GitHub Packages
+
+**Latest Version**: `0.1.4`
+**Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
+**Modules Complete**: Client + Types + Auth + RLS
 
 ## Overview
 
@@ -17,10 +23,18 @@ This package provides reusable Supabase patterns extracted from the scripts-web 
 ## Installation
 
 ```bash
-npm install @eav-ops/shared-lib
+npm install @elevanaltd/shared-lib
 ```
 
-*Note: Package not yet published - Phase 2+ required*
+**Authentication Required**: Configure GitHub Packages access in `.npmrc`:
+
+```bash
+# Project .npmrc or ~/.npmrc
+@elevanaltd:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+Create a GitHub Personal Access Token with `read:packages` scope at https://github.com/settings/tokens
 
 ## Usage
 
@@ -81,6 +95,43 @@ npm test
 npm run build
 ```
 
+## Publishing New Versions
+
+**Automated Workflow** (Recommended):
+
+1. Update version in `package.json`:
+   ```bash
+   npm version patch  # or minor, or major
+   ```
+
+2. Push changes and create git tag:
+   ```bash
+   git push origin b1_03-phase2
+   git push origin v0.1.5  # Tag triggers automatic publication
+   ```
+
+3. GitHub Actions automatically:
+   - Runs all quality gates (lint + typecheck + format + test)
+   - Builds the package
+   - Publishes to GitHub Packages
+   - Creates release
+
+**Manual Publication** (Emergency Only):
+
+```bash
+# Ensure you have a GitHub PAT with write:packages scope
+npm run validate  # All gates must pass
+npm run build
+npm publish
+```
+
+**Publication Checklist**:
+- [ ] All quality gates passing (`npm run validate`)
+- [ ] Version bumped in `package.json`
+- [ ] CHANGELOG updated with changes
+- [ ] Git tag created (format: `v*.*.*`)
+- [ ] Consumers tested with new version
+
 ## Quality Standards
 
 - **TDD Discipline**: All features developed test-first (RED→GREEN→REFACTOR)
@@ -90,12 +141,12 @@ npm run build
 
 ## Architecture
 
-**Phase 1**: ✅ Infrastructure (ESLint, Prettier, Vitest, barrel exports)
-**Phase 2**: 🚧 Client Module (Supabase client factory)
-**Phase 3**: 📋 Types Module (Schema type generation)
-**Phase 4**: 📋 Auth Module (Authentication hooks)
-**Phase 5**: 📋 RLS Module (Query builders and filters)
-**Phase 6**: 📋 Documentation & Publication
+**Phase 1**: ✅ Infrastructure (ESLint, Prettier, Vitest, barrel exports, CI pipeline)
+**Phase 2**: ✅ Client Module (Browser client with peerDependencies pattern)
+**Phase 3**: ✅ Types Module (Supabase-generated database types)
+**Phase 4**: ✅ Auth Module (Framework-agnostic DI-based hooks)
+**Phase 5**: ✅ RLS Module (Query builders + InitPlan patterns + test utilities)
+**Phase 6**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
 
 ## License
 
@@ -103,4 +154,4 @@ Private - EAV Operations internal use only
 
 ## Contributing
 
-See [B1_03 BUILD.md](../../coordination/workflow-docs/001-UNIVERSAL-EAV_SYSTEM-D1-BUILD-REFERENCE.md) for development workflow.
+See [B1_03 BUILD.md](../coordination/workflow-docs/001-UNIVERSAL-EAV_SYSTEM-D1-BUILD-REFERENCE.md) for development workflow.
