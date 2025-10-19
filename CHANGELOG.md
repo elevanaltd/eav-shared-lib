@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2025-10-19
+
 ### Added
 - Dependency injection pattern for `createBrowserClient`
 - Optional `url` and `key` parameters for test environment override
 - Test override examples in README
+- CHANGELOG.md tracking version history
 
 ### Changed
 - `createBrowserClient` signature: `() => Client` → `(url?: string, key?: string) => Client`
@@ -19,10 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Consumer app test failures (cannot inject test credentials into pre-compiled library)
 - Resolves scripts-web 8 environment errors
+- Test coverage gap (DI tests now clear environment variables to prove parameter override)
 
 ### Documentation
 - Added "Testing" section to README with dependency injection examples
 - Documented why pattern is needed (pre-compiled library limitation)
+- Updated status badge to v0.1.5
 
 ## [0.1.4] - 2025-10-18
 
@@ -72,7 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI pipeline with GitHub Actions
 - Automated publication workflow
 
-[Unreleased]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/elevanaltd/eav-shared-lib/compare/v0.1.1...v0.1.2

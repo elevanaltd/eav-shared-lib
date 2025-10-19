@@ -6,9 +6,9 @@ Shared Supabase client library for EAV Operations Suite applications.
 
 ## Status
 
-✅ **PUBLISHED** - v0.1.4 available on GitHub Packages
+✅ **PUBLISHED** - v0.1.5 available on GitHub Packages
 
-**Latest Version**: `0.1.4`
+**Latest Version**: `0.1.5`
 **Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
 **Modules Complete**: Client + Types + Auth + RLS
 

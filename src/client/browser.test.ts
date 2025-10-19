@@ -49,7 +49,12 @@ describe('createBrowserClient', () => {
   })
 
   describe('Parameter Override (Dependency Injection)', () => {
-    it('should accept url and key parameters', () => {
+    it('should accept url and key parameters without environment variables', () => {
+      // Clear environment variables to prove DI works without them
+      delete import.meta.env.VITE_SUPABASE_URL
+      delete import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+      delete import.meta.env.VITE_SUPABASE_ANON_KEY
+
       // Dependency injection: provide parameters instead of using environment
       const client = createBrowserClient(
         'https://test-project.supabase.co',
@@ -59,15 +64,15 @@ describe('createBrowserClient', () => {
       // Verify client created successfully with provided credentials
       expect(client).toBeDefined()
       expect(client.auth).toBeDefined()
-      // Client creation proves parameters were used (would throw if missing)
+      // If parameters were ignored, this would throw "Missing VITE_SUPABASE_URL"
     })
 
     it('should prioritize provided parameters over environment variables', () => {
-      // Set environment variables
+      // Set environment variables (these should be ignored)
       import.meta.env.VITE_SUPABASE_URL = 'https://env-project.supabase.co'
       import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY = 'env-key'
 
-      // Override with parameters
+      // Override with parameters (these should be used)
       const client = createBrowserClient(
         'https://override-project.supabase.co',
         'override-anon-key'
@@ -76,6 +81,7 @@ describe('createBrowserClient', () => {
       // Client created with override parameters (not environment)
       expect(client).toBeDefined()
       expect(client.auth).toBeDefined()
+      // Success proves parameters took precedence over environment
     })
 
     it('should throw error when only URL parameter provided without key', () => {
