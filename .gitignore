@@ -39,3 +39,4 @@ logs/
 # Vitest
 coverage/
 .coord
+.coord/
