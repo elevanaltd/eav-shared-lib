@@ -56,10 +56,7 @@ describe('createBrowserClient', () => {
       delete import.meta.env.VITE_SUPABASE_ANON_KEY
 
       // Dependency injection: provide parameters instead of using environment
-      const client = createBrowserClient(
-        'https://test-project.supabase.co',
-        'test-anon-key'
-      )
+      const client = createBrowserClient('https://test-project.supabase.co', 'test-anon-key')
 
       // Verify client created successfully with provided credentials
       expect(client).toBeDefined()

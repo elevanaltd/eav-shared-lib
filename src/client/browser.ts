@@ -30,15 +30,10 @@ import type { Database } from '../types/index.js'
  *   'test-anon-key'
  * )
  */
-export function createBrowserClient(
-  url?: string,
-  key?: string
-): SupabaseClient<Database> {
+export function createBrowserClient(url?: string, key?: string): SupabaseClient<Database> {
   const supabaseUrl = url ?? import.meta.env.VITE_SUPABASE_URL
   const supabaseKey =
-    key ??
-    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
-    import.meta.env.VITE_SUPABASE_ANON_KEY // Backward compat
+    key ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? import.meta.env.VITE_SUPABASE_ANON_KEY // Backward compat
 
   if (!supabaseUrl) {
     throw new Error('Missing VITE_SUPABASE_URL environment variable')
