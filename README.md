@@ -79,6 +79,40 @@ const query = applyRLSFilters(
 )
 ```
 
+## Testing
+
+### Overriding Supabase Credentials in Tests
+
+The `createBrowserClient` function supports dependency injection for test environments:
+
+```typescript
+// src/test/setup.ts or vitest.config.ts
+import { beforeAll } from 'vitest'
+import { createBrowserClient } from '@elevanaltd/shared-lib/client'
+
+beforeAll(() => {
+  // Override with test credentials
+  globalThis.testSupabase = createBrowserClient(
+    'https://test-project.supabase.co',
+    'test-anon-key'
+  )
+})
+```
+
+**Why This Pattern?**
+
+The shared library is pre-compiled (reads `import.meta.env` at build time). Test environments need to inject mock credentials at runtime. Dependency injection solves this:
+
+```typescript
+// Production (no parameters): Uses environment variables
+const supabase = createBrowserClient()
+
+// Test (with parameters): Uses injected credentials
+const supabase = createBrowserClient(testUrl, testKey)
+```
+
+This enables all 7 EAV apps to test with mock Supabase credentials without requiring environment variable manipulation.
+
 ## Development
 
 ```bash
