@@ -87,7 +87,6 @@ export async function testRLSPolicy(
       // Note: Using Record<string, unknown> for generic test insert
       const testInsert: Record<string, unknown> = { test: true }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const writeResult = await client
         .from(config.table as keyof Database['public']['Tables'])
         .insert(testInsert)

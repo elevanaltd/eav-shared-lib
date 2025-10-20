@@ -56,7 +56,6 @@ export function buildClientQuery(
   table: string,
   userId: string,
   options: BuildClientQueryOptions = {}
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): ReturnType<SupabaseClient<Database>['from']> {
   const { isAdmin = false } = options
 

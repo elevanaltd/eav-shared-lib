@@ -7,8 +7,8 @@ import { join } from 'path'
 const execAsync = promisify(exec)
 
 describe('ESLint Configuration', () => {
-  it('should have .eslintrc.json config file', () => {
-    const configPath = join(process.cwd(), '.eslintrc.json')
+  it('should have eslint.config.mjs flat config file', () => {
+    const configPath = join(process.cwd(), 'eslint.config.mjs')
     expect(existsSync(configPath)).toBe(true)
   })
 
@@ -16,8 +16,8 @@ describe('ESLint Configuration', () => {
     const { stdout } = await execAsync('npx eslint --print-config src/index.ts')
     const config = JSON.parse(stdout)
 
-    // Should have TypeScript parser
-    expect(config.parser).toContain('typescript-eslint')
+    // Flat config uses languageOptions.parser instead of parser
+    expect(config.languageOptions?.parser).toContain('typescript-eslint')
 
     // Should have TypeScript rules enabled
     expect(config.rules).toBeDefined()

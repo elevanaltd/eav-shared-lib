@@ -40,3 +40,4 @@ logs/
 coverage/
 .coord
 .coord/
+.claude/settings.local.json
