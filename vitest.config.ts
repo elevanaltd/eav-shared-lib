@@ -5,7 +5,7 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: ['./tests/setup.ts'],
-    include: ['src/**/*.test.ts', 'tests/**/*.test.ts'], // Support co-located tests
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'tests/**/*.test.ts'], // Support co-located tests
 
     // Vitest 3.x changes:
     // - Default pool changed from 'threads' to 'forks' (more stable concurrency)
