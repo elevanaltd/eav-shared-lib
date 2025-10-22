@@ -2,7 +2,9 @@
 
 # @elevanaltd/shared-lib
 
-Shared Supabase client library for EAV Operations Suite applications.
+Shared infrastructure library for EAV Operations Suite applications.
+
+Combines Supabase integration (data layer) with React UI state management (presentation layer) extracted from scripts-web production MVP.
 
 ## Status
 
@@ -14,12 +16,16 @@ Shared Supabase client library for EAV Operations Suite applications.
 
 ## Overview
 
-This package provides reusable Supabase patterns extracted from the scripts-web production MVP:
-- **Client Module**: Authenticated client factory with configuration management
-- **Types Module**: Generated TypeScript types from Supabase schema
-- **Auth Module**: Authentication hooks (`useAuth`, `useUser`, `useSession`)
-- **RLS Module**: Row-Level Security utilities and query builders
-- **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation`)
+This package provides two categories of reusable functionality:
+
+### Supabase Integration (Data Layer)
+- **Client Module**: Authenticated Supabase client factory with environment configuration
+- **Types Module**: Generated TypeScript types from Supabase database schema
+- **Auth Module**: Authentication functions (`signIn`, `signOut`, `getSession`, auth state management)
+- **RLS Module**: Row-Level Security query builders, performance measurement, policy testing
+
+### React UI State (Presentation Layer)
+- **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation` React hook)
 
 ## Installation
 
