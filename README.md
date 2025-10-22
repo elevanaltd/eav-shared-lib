@@ -6,11 +6,11 @@ Shared Supabase client library for EAV Operations Suite applications.
 
 ## Status
 
-✅ **PUBLISHED** - v0.1.5 available on GitHub Packages
+✅ **PUBLISHED** - v0.1.8 available on GitHub Packages
 
-**Latest Version**: `0.1.5`
+**Latest Version**: `0.1.8`
 **Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
-**Modules Complete**: Client + Types + Auth + RLS
+**Modules Complete**: Client + Types + Auth + RLS + Navigation
 
 ## Overview
 
@@ -19,6 +19,7 @@ This package provides reusable Supabase patterns extracted from the scripts-web 
 - **Types Module**: Generated TypeScript types from Supabase schema
 - **Auth Module**: Authentication hooks (`useAuth`, `useUser`, `useSession`)
 - **RLS Module**: Row-Level Security utilities and query builders
+- **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation`)
 
 ## Installation
 
@@ -38,45 +39,63 @@ Create a GitHub Personal Access Token with `read:packages` scope at https://gith
 
 ## Usage
 
-### Client Module (Phase 2+)
+### Client Module
 
 ```typescript
-import { createClient } from '@eav-ops/shared-lib/client'
+import { createBrowserClient } from '@elevanaltd/shared-lib/client';
 
-const supabase = createClient({
-  url: process.env.SUPABASE_URL,
-  anonKey: process.env.SUPABASE_ANON_KEY
-})
+const supabase = createBrowserClient();
+// Uses VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY from environment
 ```
 
-### Types Module (Phase 3+)
+### Types Module
 
 ```typescript
-import type { Database, Tables } from '@eav-ops/shared-lib/types'
+import type { Database, Tables } from '@elevanaltd/shared-lib/types';
 
-type Script = Tables<'scripts'>
+type Project = Tables<'projects'>;
+type Video = Tables<'videos'>;
 ```
 
-### Auth Module (Phase 4+)
+### Auth Module
 
 ```typescript
-import { useAuth } from '@eav-ops/shared-lib/auth'
+import { useAuth } from '@elevanaltd/shared-lib/auth';
 
 function MyComponent() {
-  const { currentUser, userProfile, signIn, logout } = useAuth()
+  const { currentUser, userProfile, signIn, logout } = useAuth();
   // ...
 }
 ```
 
-### RLS Module (Phase 5+)
+### RLS Module
 
 ```typescript
-import { applyRLSFilters } from '@eav-ops/shared-lib/rls'
+import { applyRLSFilters } from '@elevanaltd/shared-lib/rls';
 
 const query = applyRLSFilters(
   supabase.from('scripts').select('*'),
   { userId, role: 'client', clientFilter }
-)
+);
+```
+
+### Navigation Module
+
+```typescript
+import { NavigationProvider, useNavigation } from '@elevanaltd/shared-lib/navigation';
+
+function App() {
+  return (
+    <NavigationProvider>
+      <YourAppComponents />
+    </NavigationProvider>
+  );
+}
+
+function NavigationComponent() {
+  const { selectedProjectId, selectedVideoId, setSelectedProject } = useNavigation();
+  // Cross-app navigation state management
+}
 ```
 
 ## Testing
@@ -140,8 +159,8 @@ npm run build
 
 2. Push changes and create git tag:
    ```bash
-   git push origin b1_03-phase2
-   git push origin v0.1.5  # Tag triggers automatic publication
+   git push origin main
+   git push origin v0.1.8  # Tag triggers automatic publication
    ```
 
 3. GitHub Actions automatically:
@@ -180,7 +199,8 @@ npm publish
 **Phase 3**: ✅ Types Module (Supabase-generated database types)
 **Phase 4**: ✅ Auth Module (Framework-agnostic DI-based hooks)
 **Phase 5**: ✅ RLS Module (Query builders + InitPlan patterns + test utilities)
-**Phase 6**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
+**Phase 6**: ✅ Navigation Module (NavigationProvider + useNavigation for cross-app state)
+**Phase 7**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
 
 ## License
 
