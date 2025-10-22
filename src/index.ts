@@ -22,5 +22,6 @@ export * from './auth/index.js'
 // RLS module - Row Level Security utilities
 export * from './rls/index.js'
 
-// Navigation module - Navigation context types (Quest A: Task A1)
+// Navigation module - Navigation context types and provider (Quest A: Tasks A1-A2)
 export * from './navigation/NavigationContext.js'
+export { NavigationProvider, useNavigation } from './navigation/NavigationProvider.js'
