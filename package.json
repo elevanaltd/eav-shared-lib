@@ -30,6 +30,10 @@
     "./rls": {
       "types": "./dist/rls/index.d.ts",
       "import": "./dist/rls/index.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation/index.d.ts",
+      "import": "./dist/navigation/index.js"
     }
   },
   "scripts": {
