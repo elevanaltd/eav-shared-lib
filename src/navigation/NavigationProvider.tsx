@@ -7,47 +7,47 @@
  * Extracted from scripts-web to enable reuse across EAV apps.
  */
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import type { Project, Video, NavigationContextType } from './NavigationContext';
+import { createContext, useContext, useState, ReactNode, ReactElement } from 'react'
+import type { Project, Video, NavigationContextType } from './NavigationContext'
 
-const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
+const NavigationContext = createContext<NavigationContextType | undefined>(undefined)
 
 interface NavigationProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export function NavigationProvider({ children }: NavigationProviderProps) {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+export function NavigationProvider({ children }: NavigationProviderProps): ReactElement {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null)
 
-  const handleSetSelectedProject = (project: Project | null) => {
-    setSelectedProject(project);
+  const handleSetSelectedProject = (project: Project | null): void => {
+    setSelectedProject(project)
     // Clear video selection when switching projects (unless same eav_code)
     if (selectedVideo && project?.eav_code !== selectedVideo.eav_code) {
-      setSelectedVideo(null);
+      setSelectedVideo(null)
     }
-  };
+  }
 
-  const handleSetSelectedVideo = (video: Video | null, project?: Project | null) => {
-    setSelectedVideo(video);
+  const handleSetSelectedVideo = (video: Video | null, project?: Project | null): void => {
+    setSelectedVideo(video)
     // Automatically set project if video provided and project not set
     if (video && project && selectedProject?.id !== project.id) {
-      setSelectedProject(project);
+      setSelectedProject(project)
     }
-  };
+  }
 
-  const clearSelection = () => {
-    setSelectedProject(null);
-    setSelectedVideo(null);
-  };
+  const clearSelection = (): void => {
+    setSelectedProject(null)
+    setSelectedVideo(null)
+  }
 
   const isProjectSelected = (projectId: string): boolean => {
-    return selectedProject?.id === projectId;
-  };
+    return selectedProject?.id === projectId
+  }
 
   const isVideoSelected = (videoId: string): boolean => {
-    return selectedVideo?.id === videoId;
-  };
+    return selectedVideo?.id === videoId
+  }
 
   const value: NavigationContextType = {
     selectedProject,
@@ -57,13 +57,9 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     clearSelection,
     isProjectSelected,
     isVideoSelected,
-  };
+  }
 
-  return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
-  );
+  return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>
 }
 
 /**
@@ -71,10 +67,10 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
  *
  * @throws Error if used outside NavigationProvider
  */
-export function useNavigation() {
-  const context = useContext(NavigationContext);
+export function useNavigation(): NavigationContextType {
+  const context = useContext(NavigationContext)
   if (context === undefined) {
-    throw new Error('useNavigation must be used within a NavigationProvider');
+    throw new Error('useNavigation must be used within a NavigationProvider')
   }
-  return context;
+  return context
 }

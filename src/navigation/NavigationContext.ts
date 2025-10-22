@@ -10,32 +10,32 @@
 // Decision: Extract FULL production contract (not minimal handoff spec) for seamless migration
 
 export interface Project {
-  id: string;
-  title: string;
-  eav_code: string;
-  due_date?: string;
-  project_phase?: string | null;
+  id: string
+  title: string
+  eav_code: string
+  due_date?: string
+  project_phase?: string | null
 }
 
 export interface Video {
-  id: string;
-  eav_code: string;
-  title: string;
-  main_stream_status?: string;
-  vo_stream_status?: string;
+  id: string
+  eav_code: string
+  title: string
+  main_stream_status?: string
+  vo_stream_status?: string
 }
 
 export interface NavigationContextType {
   // Selection state
-  selectedProject: Project | null;
-  selectedVideo: Video | null;
+  selectedProject: Project | null
+  selectedVideo: Video | null
 
   // Selection actions
-  setSelectedProject: (project: Project | null) => void;
-  setSelectedVideo: (video: Video | null, project?: Project | null) => void;
+  setSelectedProject: (project: Project | null) => void
+  setSelectedVideo: (video: Video | null, project?: Project | null) => void
 
   // Helpers
-  clearSelection: () => void;
-  isProjectSelected: (projectId: string) => boolean;
-  isVideoSelected: (videoId: string) => boolean;
+  clearSelection: () => void
+  isProjectSelected: (projectId: string) => boolean
+  isVideoSelected: (videoId: string) => boolean
 }

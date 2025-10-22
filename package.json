@@ -37,8 +37,8 @@
     "test": "vitest",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"tests/**/*.ts\"",
     "typecheck": "tsc --noEmit",
     "validate": "npm run lint && npm run typecheck && npm run format:check && npm test -- --run"
   },

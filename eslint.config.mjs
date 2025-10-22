@@ -16,7 +16,7 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([
-    globalIgnores(["**/dist/**", "**/node_modules/**", "**/*.js", "**/*.test.ts"]),
+    globalIgnores(["**/dist/**", "**/node_modules/**", "**/*.js", "**/*.test.ts", "**/*.test.tsx"]),
     {
         extends: compat.extends(
             "eslint:recommended",
@@ -39,6 +39,9 @@ export default defineConfig([
 
             parserOptions: {
                 project: "./tsconfig.json",
+                ecmaFeatures: {
+                    jsx: true,
+                },
             },
         },
 
