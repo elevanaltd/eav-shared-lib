@@ -20,7 +20,8 @@ describe('createAuthDelay', () => {
     const elapsed = Date.now() - start
 
     // Second call should wait at least 100ms after first
-    expect(elapsed).toBeGreaterThanOrEqual(100)
+    // Allow 2ms tolerance for CI timing precision (98-100ms acceptable)
+    expect(elapsed).toBeGreaterThanOrEqual(98)
   })
 
   it('should prevent rapid successive calls', async () => {
