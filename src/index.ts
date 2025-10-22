@@ -7,6 +7,7 @@
  * - types: Database and API types
  * - auth: Authentication utilities
  * - rls: Row Level Security utilities
+ * - navigation: Navigation context types (Quest A)
  */
 
 // Client module - Supabase client factory
@@ -20,3 +21,6 @@ export * from './auth/index.js'
 
 // RLS module - Row Level Security utilities
 export * from './rls/index.js'
+
+// Navigation module - Navigation context types (Quest A: Task A1)
+export * from './navigation/NavigationContext.js'
