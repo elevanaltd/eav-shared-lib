@@ -21,7 +21,7 @@ describe('Navigation Module Barrel', () => {
 
   it('should have all expected exports', () => {
     const expectedExports = ['NavigationProvider', 'useNavigation']
-    expectedExports.forEach(exportName => {
+    expectedExports.forEach((exportName) => {
       expect(navigationModule).toHaveProperty(exportName)
     })
   })
