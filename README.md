@@ -2,7 +2,9 @@
 
 # @elevanaltd/shared-lib
 
-Shared Supabase client library for EAV Operations Suite applications.
+Shared infrastructure library for EAV Operations Suite applications.
+
+Combines Supabase integration (data layer) with React UI state management (presentation layer) extracted from scripts-web production MVP.
 
 ## Status
 
@@ -14,12 +16,16 @@ Shared Supabase client library for EAV Operations Suite applications.
 
 ## Overview
 
-This package provides reusable Supabase patterns extracted from the scripts-web production MVP:
-- **Client Module**: Authenticated client factory with configuration management
-- **Types Module**: Generated TypeScript types from Supabase schema
-- **Auth Module**: Authentication hooks (`useAuth`, `useUser`, `useSession`)
-- **RLS Module**: Row-Level Security utilities and query builders
-- **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation`)
+This package provides two categories of reusable functionality:
+
+### Supabase Integration (Data Layer)
+- **Client Module**: Authenticated Supabase client factory with environment configuration
+- **Types Module**: Generated TypeScript types from Supabase database schema
+- **Auth Module**: Authentication functions (`signIn`, `signOut`, `getSession`, auth state management)
+- **RLS Module**: Row-Level Security query builders, performance measurement, policy testing
+
+### React UI State (Presentation Layer)
+- **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation` React hook)
 
 ## Installation
 
@@ -60,23 +66,43 @@ type Video = Tables<'videos'>;
 ### Auth Module
 
 ```typescript
-import { useAuth } from '@elevanaltd/shared-lib/auth';
+import { signIn, signOut, getSession, onAuthStateChange } from '@elevanaltd/shared-lib/auth';
 
-function MyComponent() {
-  const { currentUser, userProfile, signIn, logout } = useAuth();
-  // ...
-}
+// Sign in user
+await signIn(email, password);
+
+// Get current session
+const session = await getSession();
+
+// Listen for auth state changes
+onAuthStateChange((event, session) => {
+  console.log('Auth event:', event, session);
+});
+
+// Sign out
+await signOut();
 ```
 
 ### RLS Module
 
 ```typescript
-import { applyRLSFilters } from '@elevanaltd/shared-lib/rls';
+import { buildClientQuery, measureQueryTime, testRLSPolicy } from '@elevanaltd/shared-lib/rls';
 
-const query = applyRLSFilters(
-  supabase.from('scripts').select('*'),
-  { userId, role: 'client', clientFilter }
+// Build client-filtered query
+const query = buildClientQuery(
+  supabase,
+  'scripts',
+  userId,
+  assignedClients
 );
+
+// Measure query performance
+const { data, duration } = await measureQueryTime(
+  supabase.from('scripts').select('*')
+);
+
+// Test RLS policy enforcement
+await testRLSPolicy(supabase, 'scripts', 'client_read', userId);
 ```
 
 ### Navigation Module
@@ -93,8 +119,19 @@ function App() {
 }
 
 function NavigationComponent() {
-  const { selectedProjectId, selectedVideoId, setSelectedProject } = useNavigation();
-  // Cross-app navigation state management
+  const {
+    selectedProject,      // Full project object (not just ID)
+    selectedVideo,        // Full video object (not just ID)
+    setSelectedProject,   // (projectId: string) => void
+    setSelectedVideo,     // (videoId: string) => void
+    clearSelection,       // () => void
+    isProjectSelected,    // (projectId: string) => boolean
+    isVideoSelected       // (videoId: string) => boolean
+  } = useNavigation();
+
+  // Access IDs from objects:
+  const projectId = selectedProject?.id;
+  const videoId = selectedVideo?.id;
 }
 ```
 
@@ -197,9 +234,9 @@ npm publish
 **Phase 1**: ✅ Infrastructure (ESLint, Prettier, Vitest, barrel exports, CI pipeline)
 **Phase 2**: ✅ Client Module (Browser client with peerDependencies pattern)
 **Phase 3**: ✅ Types Module (Supabase-generated database types)
-**Phase 4**: ✅ Auth Module (Framework-agnostic DI-based hooks)
-**Phase 5**: ✅ RLS Module (Query builders + InitPlan patterns + test utilities)
-**Phase 6**: ✅ Navigation Module (NavigationProvider + useNavigation for cross-app state)
+**Phase 4**: ✅ Auth Module (Function-based auth with signIn, signOut, session management)
+**Phase 5**: ✅ RLS Module (Query builders, performance measurement, policy testing)
+**Phase 6**: ✅ Navigation Module (NavigationProvider + useNavigation hook for cross-app state)
 **Phase 7**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
 
 ## License
