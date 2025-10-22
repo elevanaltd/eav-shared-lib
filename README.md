@@ -8,9 +8,9 @@ Combines Supabase integration (data layer) with React UI state management (prese
 
 ## Status
 
-✅ **PUBLISHED** - v0.1.8 available on GitHub Packages
+✅ **PUBLISHED** - v0.1.9 available on GitHub Packages
 
-**Latest Version**: `0.1.8`
+**Latest Version**: `0.1.9`
 **Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
 **Modules Complete**: Client + Types + Auth + RLS + Navigation
 
@@ -197,7 +197,7 @@ npm run build
 2. Push changes and create git tag:
    ```bash
    git push origin main
-   git push origin v0.1.8  # Tag triggers automatic publication
+   git push origin v0.1.9  # Tag triggers automatic publication
    ```
 
 3. GitHub Actions automatically:
