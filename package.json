@@ -34,10 +34,6 @@
     "./navigation": {
       "types": "./dist/navigation/index.d.ts",
       "import": "./dist/navigation/index.js"
-    },
-    "./ui": {
-      "types": "./dist/ui/index.d.ts",
-      "import": "./dist/ui/index.js"
     }
   },
   "scripts": {
