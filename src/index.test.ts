@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { existsSync } from 'fs'
 import { join } from 'path'
 import * as sharedLib from './index.js'
-import type { Project, NavigationContextType } from './index.js'
+import type { Project, NavigationContextType, DropdownOption } from './index.js'
 
 describe('Package Infrastructure', () => {
   it('should have src/index.ts entry point', () => {
@@ -49,6 +49,27 @@ describe('Package Barrel Exports', () => {
         isVideoSelected: () => false,
       }
       expect(mockContext).toBeDefined()
+    })
+  })
+
+  describe('Dropdowns Module', () => {
+    it('should export useDropdownOptions hook', () => {
+      expect(sharedLib.useDropdownOptions).toBeDefined()
+      expect(typeof sharedLib.useDropdownOptions).toBe('function')
+    })
+
+    it('should export DropdownOption type', () => {
+      // Type exports are validated at compile time by TypeScript
+      // This test verifies the type is accessible through the barrel export
+      const mockOption: DropdownOption = {
+        id: 'test-id',
+        field_name: 'shot_type',
+        option_value: 'WS',
+        option_label: 'Wide Shot',
+        sort_order: 1,
+        created_at: '2025-01-01',
+      }
+      expect(mockOption).toBeDefined()
     })
   })
 })
