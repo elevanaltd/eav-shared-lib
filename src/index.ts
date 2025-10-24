@@ -8,6 +8,7 @@
  * - auth: Authentication utilities
  * - rls: Row Level Security utilities
  * - navigation: Navigation context types (Quest A)
+ * - ui: Shared UI components (Phase 0.0)
  */
 
 // Client module - Supabase client factory
@@ -25,3 +26,6 @@ export * from './rls/index.js'
 // Navigation module - Navigation context types and provider (Quest A: Tasks A1-A2)
 export * from './navigation/NavigationContext.js'
 export { NavigationProvider, useNavigation } from './navigation/NavigationProvider.js'
+
+// UI module - Shared UI components (Phase 0.0: Header extraction)
+export * from './ui/index.js'
