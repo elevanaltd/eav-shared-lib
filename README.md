@@ -8,11 +8,11 @@ Combines Supabase integration (data layer) with React UI state management (prese
 
 ## Status
 
-✅ **PUBLISHED** - v0.1.9 available on GitHub Packages
+✅ **PUBLISHED** - v0.2.0 available on GitHub Packages
 
-**Latest Version**: `0.1.9`
+**Latest Version**: `0.2.0`
 **Package Registry**: https://github.com/elevanaltd/eav-shared-lib/pkgs/npm/shared-lib
-**Modules Complete**: Client + Types + Auth + RLS + Navigation
+**Modules Complete**: Client + Types + Auth + RLS + Navigation + Dropdowns
 
 ## Overview
 
@@ -26,6 +26,7 @@ This package provides two categories of reusable functionality:
 
 ### React UI State (Presentation Layer)
 - **Navigation Module**: Cross-app navigation state management (`NavigationProvider`, `useNavigation` React hook)
+- **Dropdowns Module**: Database-driven dropdown options with caching (`useDropdownOptions` React Query hook)
 
 ## Installation
 
@@ -135,6 +136,52 @@ function NavigationComponent() {
 }
 ```
 
+### Dropdowns Module
+
+```typescript
+import { useDropdownOptions } from '@elevanaltd/shared-lib';
+import { supabase } from './lib/supabase';
+
+function MyComponent() {
+  const { data: options, isLoading, error } = useDropdownOptions('shot_type', supabase);
+
+  if (isLoading) return <div>Loading options...</div>;
+  if (error) return <div>Error loading options</div>;
+
+  return (
+    <select>
+      {options?.map(option => (
+        <option key={option.id} value={option.option_value}>
+          {option.option_label}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+**Features:**
+- TanStack Query caching (automatic deduplication and invalidation)
+- Field-specific filtering via `field_name` parameter
+- Error handling and loading states
+- Client injection pattern (app-agnostic, testable)
+- Type-safe with `DropdownOption` interface
+
+**Example - All Options:**
+```typescript
+// Fetch all dropdown options (no field filter)
+const { data: allOptions } = useDropdownOptions(undefined, supabase);
+```
+
+**Example - Field-Specific:**
+```typescript
+// Fetch only 'shot_type' options
+const { data: shotTypes } = useDropdownOptions('shot_type', supabase);
+
+// Fetch only 'location_start_point' options
+const { data: locations } = useDropdownOptions('location_start_point', supabase);
+```
+
 ## Testing
 
 ### Overriding Supabase Credentials in Tests
@@ -237,7 +284,8 @@ npm publish
 **Phase 4**: ✅ Auth Module (Function-based auth with signIn, signOut, session management)
 **Phase 5**: ✅ RLS Module (Query builders, performance measurement, policy testing)
 **Phase 6**: ✅ Navigation Module (NavigationProvider + useNavigation hook for cross-app state)
-**Phase 7**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
+**Phase 7**: ✅ Dropdowns Module (useDropdownOptions React Query hook with TanStack Query caching)
+**Phase 8**: 🚧 Documentation (README updated, CHANGELOG + API docs remaining)
 
 ## License
 

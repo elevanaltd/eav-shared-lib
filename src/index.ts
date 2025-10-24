@@ -25,3 +25,6 @@ export * from './rls/index.js'
 // Navigation module - Navigation context types and provider (Quest A: Tasks A1-A2)
 export * from './navigation/NavigationContext.js'
 export { NavigationProvider, useNavigation } from './navigation/NavigationProvider.js'
+
+// Dropdowns module - Database-driven dropdown options (Phase 0.1)
+export * from './dropdowns/index.js'
